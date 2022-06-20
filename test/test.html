@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test</title>
+  </head>
+  <body>
+    <script type="module">
+      import { RAF } from "../dist/index.js";
+
+      const t1 = Date.now();
+      console.log("t1 =", t1);
+
+      const timeoutId1 = RAF.setTimeout(() => {
+        console.log("Hello RAF.setTimeout", timeoutId1);
+        const t2 = Date.now();
+        console.log("t2 - t1 =", t2 - t1);
+      }, 2000);
+
+      const timeoutId2 = setTimeout(() => {
+        console.log("Hello setTimeout", timeoutId2);
+        const t2 = Date.now();
+        console.log("t2 - t1 =", t2 - t1);
+      }, 2000);
+
+      const intervalId = RAF.setInterval(() => {
+        console.log('Hello RAF.setInterval', intervalId)
+      }, 1000);
+
+      window.addEventListener("click", () => {
+        console.log("Hello clearInterval", intervalId);
+        RAF.clearInterval(intervalId);
+      });
+
+    </script>
+  </body>
+</html>
